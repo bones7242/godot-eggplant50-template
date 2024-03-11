@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/baseball.png-51798c1d325e490b6a4e6c171ce0bd71.stex"
+path="res://.import/flagx32.png-05464bd3a486178bc89e6503af96401a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://games/bones7242/sprites/baseball.png"
-dest_files=[ "res://.import/baseball.png-51798c1d325e490b6a4e6c171ce0bd71.stex" ]
+source_file="res://games/bones7242/sprites/flagx32.png"
+dest_files=[ "res://.import/flagx32.png-05464bd3a486178bc89e6503af96401a.stex" ]
 
 [params]
 

@@ -24,6 +24,10 @@ var yGravity = -20; # should just be set globally so all objects have same gravi
 var projectedCoordinates : Array
 var rotationSpeed = 5; # must be multiple of rotateUprightSpeed and 
 
+var homerun_distance = 100 # TBD: this shoudl really be stored elsewhere like score board
+
+var shadow : Area2D
+
 func change_state(new_state):
 	# store the current state as last state, if it exists
 	if current_state:
@@ -37,10 +41,14 @@ func change_state(new_state):
 func change_state_held():
 	last_state = current_state
 	change_state(State.HELD)
-	unprojectedX = 220
-	unprojectedY = 300 # should start up off the ground a bit
-	unprojectedZ = 4
+	unprojectedX = 220 # reset
+	unprojectedY = 300 # reset
+	unprojectedZ = 4 # reset
+	xVelocity = 0 # reset
+	yVelocity = 0 # reset
+	zVelocity = 0 # reset
 	get_node("spr_baseball").visible = false
+	#get_parent().get_node("shadow_2d").visible = true
 	pass
 
 func change_state_released(batter_throw_power):
@@ -49,14 +57,25 @@ func change_state_released(batter_throw_power):
 	last_state = current_state
 	change_state(State.RELEASED)
 	get_node("spr_baseball").visible = true
+	pass
 	
 func hit(batter_swing_power):
 	if (State.RELEASED) :
-		yVelocity += batter_swing_power * 10 # multiplying b/c comes in 1-100 but now we will use delta
-		zVelocity = batter_swing_power  # make it a percent of max 20
-		xVelocity += 10
+		get_parent().get_node("AudioStreamPlayer2").play()
+		yVelocity = batter_swing_power * 30 # multiplying b/c comes in 1-100 but now we will use delta
+		zVelocity = batter_swing_power # make it a percent of max 20
+		xVelocity = 10
+	pass
 
 func change_state_grounded():
+	# do scoring
+	if (unprojectedZ <= 4) :
+		get_parent().get_node("Scoreboard").new_strike()
+	elif (unprojectedZ >= (homerun_distance + 4)) :
+		get_parent().get_node("Scoreboard").new_run()
+	else :
+		get_parent().get_node("Scoreboard").new_out()
+	# change to grounded
 	last_state = current_state
 	change_state(State.GROUNDED)
 	unprojectedY = ground  # set y to ground
@@ -65,6 +84,8 @@ func change_state_grounded():
 	zVelocity = 0 # will be set by creator
 	# reset batter's counter
 	get_parent().get_node("batter_area2d").delta_counter = 0 
+	get_parent().get_node("AudioStreamPlayer").play()
+	#get_parent().get_node("shadow_2d").visible = false
 	pass
 	
 func determineZAsPercent (unprojectedZDistance) :
@@ -127,12 +148,15 @@ func set_3d_position():
 	print("projected coordinates: " + str(projectedCoordinates))
 	position.x = projectedCoordinates[0]
 	position.y = projectedCoordinates[1]
+	#update shadow
+	#shadow.position.x = projectedCoordinates[0]
+	#shadow.position.y = projectedCoordinates[1]
 	
-func set_2d_position():
-	var coords = [unprojectedX, room_height - unprojectedY]
-	print("2d coordinates: " + str(coords))
-	position.x = coords[0]
-	position.y = coords[1]
+#func set_2d_position():
+#	var coords = [unprojectedX, room_height - unprojectedY]
+#	print("2d coordinates: " + str(coords))
+#	position.x = coords[0]
+#	position.y = coords[1]
 
 func determineImageScale () :
 	var imageScale = 1 - (determineZAsPercent(unprojectedZ) * 0.9);
@@ -142,10 +166,12 @@ func determineImageScale () :
 func set_3d_image_scale () :
 	var image_scale = determineImageScale()
 	scale = Vector2(image_scale, image_scale)
+#	shadow.scale = Vector2(image_scale, image_scale)
 
 func _ready():
 	change_state_held()
 	#set_3d_image_scale()
+	shadow = get_parent().get_node("shadow_2d")
 	pass
 	
 func _process(delta):
@@ -191,8 +217,10 @@ func _process(delta):
 				# create a "splash" effect (using the wake for this)
 		State.GROUNDED:
 			#print("delta counter = " + str(delta_counter));
+			set_3d_position()
+			set_3d_image_scale()
 			pass
 		_:
 			print("I am not a baseball state I know of!")
-		
-	#print('power:' + str(power))
+	shadow.update_location()
+	print('baseball position: ' + str(position))
