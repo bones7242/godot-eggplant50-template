@@ -61,7 +61,7 @@ func change_state_released(batter_throw_power):
 	
 func hit(batter_swing_power):
 	if (State.RELEASED) :
-		get_parent().get_node("AudioStreamPlayer2").play()
+		get_node("snd_hit").play()
 		yVelocity = batter_swing_power * 30 # multiplying b/c comes in 1-100 but now we will use delta
 		zVelocity = batter_swing_power # make it a percent of max 20
 		xVelocity = 10
@@ -84,7 +84,7 @@ func change_state_grounded():
 	zVelocity = 0 # will be set by creator
 	# reset batter's counter
 	get_parent().get_node("batter_area2d").delta_counter = 0 
-	get_parent().get_node("AudioStreamPlayer").play()
+	get_node("snd_hit_ground").play()
 	#get_parent().get_node("shadow_2d").visible = false
 	pass
 	

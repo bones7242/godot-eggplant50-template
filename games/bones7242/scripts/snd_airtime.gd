@@ -6,7 +6,7 @@ var half_max_z_depth = 200
 var reel_click_interval = 5
 
 func _ready():
-	ball = get_parent().get_node("baseball_area2d")	
+	ball = get_parent()
 	last_ball_z = ball.unprojectedZ
 	pass
 

@@ -67,6 +67,7 @@ func _process(delta):
 			if Input.is_action_pressed("action1"):
 				change_state(State.CROUCH)
 				get_node("Sprite").set_texture(spr_batter_crouch)
+				get_node("snd_click").last_throw_power = throw_power
 		State.CROUCH:
 			# build up power
 			if throw_power < max_throw_power:
@@ -80,12 +81,14 @@ func _process(delta):
 				var ball = get_parent().get_node("baseball_area2d")
 				ball.change_state_released(throw_power) # change state
 				throw_power = min_throw_power # reset
+				get_node("snd_release").play()
 		State.RELEASE:
 			if Input.is_action_pressed("action1"):
 				change_state(State.WINDUP)
 				swing_power = min_swing_power
 				get_node("Sprite").set_texture(spr_batter_windup)
 				get_parent().get_node("bat_area2d").visible = true
+				get_node("snd_click").last_swing_power = swing_power
 		State.WINDUP:
 			# build up power
 			if swing_power < max_swing_power:
@@ -102,7 +105,6 @@ func _process(delta):
 				print("YOU GOT A HIT!")
 				#to do: affect the ball
 				get_parent().get_node("baseball_area2d").hit(swing_power) # change state
-			
 			if (delta_counter > 0.1) :
 				change_state(State.FOLLOWTHROUGH)
 				get_node("Sprite").set_texture(spr_batter_followthrough)	

@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/pickupCoin (4).wav-41e1acbfd3d850db719a74a3c6660c4f.sample"
+path="res://.import/jump (1).wav-0fe5895c6b75a6bc5a3601b424fa84fd.sample"
 
 [deps]
 
-source_file="res://games/bones7242/sounds/pickupCoin (4).wav"
-dest_files=[ "res://.import/pickupCoin (4).wav-41e1acbfd3d850db719a74a3c6660c4f.sample" ]
+source_file="res://games/bones7242/sounds/jump (1).wav"
+dest_files=[ "res://.import/jump (1).wav-0fe5895c6b75a6bc5a3601b424fa84fd.sample" ]
 
 [params]
 
