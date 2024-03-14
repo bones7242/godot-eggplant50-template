@@ -1,4 +1,4 @@
-extends RichTextLabel
+extends Sprite
 
 var outs = 0
 var strikes = 0
@@ -58,12 +58,41 @@ func new_strike ():
 func new_run ():
 	increase_runs()
 	reset_strikes()
+	# update display
+	get_node("Homeruns").set_text(str(runs))
 	pass
+	
+func update_display ():
+	if (strikes >= 1):
+		get_node("strike_one").set_text("X")
+	else :
+		get_node("strike_one").set_text("")
+	
+	if (strikes >= 2):
+		get_node("strike_two").set_text("X")
+	else :
+		get_node("strike_two").set_text("")
+		
+	if (strikes >= 3):
+		get_node("strike_three").set_text("X")
+	else :
+		get_node("strike_three").set_text("")
+	
+	if (outs >= 1):
+		get_node("out_one").set_text("X")
+	else :
+		get_node("out_one").set_text("")
+		
+	if (outs >= 2):
+		get_node("out_two").set_text("X")
+	else :
+		get_node("out_two").set_text("")
+		
+	if (outs >= 3):
+		get_node("out_three").set_text("X")
+	else :
+		get_node("out_three").set_text("")
 
 func _process(delta):
-	set_text("Strikes: " + str(strikes))
-	newline()
-	add_text("Outs: " + str(outs))
-	newline()
-	add_text("Home Runs: " + str(runs))
+	update_display()
 	pass
