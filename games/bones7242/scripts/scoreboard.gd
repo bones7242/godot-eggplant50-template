@@ -44,6 +44,8 @@ func new_out ():
 		reset_runs()
 		reset_outs()
 		reset_strikes()
+	yield(get_tree().create_timer(0.5), "timeout")
+	update_display()
 	pass
 	
 func new_strike ():
@@ -53,6 +55,8 @@ func new_strike ():
 		print("that's three strikes")
 		new_out()
 		reset_strikes()
+	yield(get_tree().create_timer(0.5), "timeout")
+	update_display()
 	pass
 
 func new_run ():
@@ -60,6 +64,8 @@ func new_run ():
 	reset_strikes()
 	# update display
 	get_node("Homeruns").set_text(str(runs))
+	yield(get_tree().create_timer(0.5), "timeout")
+	update_display()
 	pass
 	
 func update_display ():
@@ -93,6 +99,9 @@ func update_display ():
 	else :
 		get_node("out_three").set_text("")
 
-func _process(delta):
+func _ready():
 	update_display()
+	pass
+
+func _process(delta):
 	pass
