@@ -6,6 +6,8 @@ extends Area2D
 # var b = "text"
 var start_x = 200
 var start_y = 140
+var offset_x = 0;
+var offset_y = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,6 +21,5 @@ func _ready():
 #	pass
 
 func _draw():
-	
 	draw_rect(Rect2(0, 0, 50, 30), Color("#39855a"), false)
 	pass

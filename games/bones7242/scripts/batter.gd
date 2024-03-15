@@ -26,6 +26,8 @@ var swing_power_increment = 1
 
 var delta_counter = 0
 
+var rng = RandomNumberGenerator.new()
+
 func change_state(new_state):
 	# store the current state as last state, if it exists
 	if current_state:
@@ -94,6 +96,14 @@ func _process(delta):
 			if swing_power < max_swing_power:
 				swing_power += swing_power_increment
 			# print("swing power = " + str(swing_power))
+			var power_ratio = swing_power / max_swing_power
+			var my_random_number = rng.randf_range(0.0, 1.0)
+			if (my_random_number < power_ratio):
+				print("resetting box")
+				var my_random_offset = rng.randf_range(-5.0, 5.0) #to do: make range proportional to time
+				var box = get_parent().get_node("bat_area2d")
+				box.position.x = box.start_x + my_random_offset
+				box.position.y = box.start_y + my_random_offset
 			#listen for change to released
 			if Input.is_action_just_released("action1"):
 				change_state(State.SWING)
