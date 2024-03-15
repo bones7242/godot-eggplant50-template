@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://games/bones7242/sprites/baseballx32.png" type="Texture" id=1]
 [ext_resource path="res://games/bones7242/scripts/baseball.gd" type="Script" id=2]
@@ -10,18 +10,23 @@
 [ext_resource path="res://games/bones7242/sprites/background.png" type="Texture" id=8]
 [ext_resource path="res://games/bones7242/scripts/RichTextLabel.gd" type="Script" id=9]
 [ext_resource path="res://games/bones7242/scripts/scoreboard.gd" type="Script" id=10]
-[ext_resource path="res://games/bones7242/sounds/pickupCoin (3).wav" type="AudioStream" id=11]
+[ext_resource path="res://games/bones7242/sounds/hit_reflect.wav" type="AudioStream" id=11]
 [ext_resource path="res://shared/menu_pause/PauseMenu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://games/bones7242/sprites/flagx32.png" type="Texture" id=13]
 [ext_resource path="res://games/bones7242/scripts/spr_flag.gd" type="Script" id=14]
 [ext_resource path="res://games/bones7242/scripts/shadow_2d.gd" type="Script" id=15]
 [ext_resource path="res://games/bones7242/scripts/snd_airtime.gd" type="Script" id=16]
-[ext_resource path="res://games/bones7242/sounds/jump (1).wav" type="AudioStream" id=17]
+[ext_resource path="res://games/bones7242/sounds/throw_1.wav" type="AudioStream" id=17]
 [ext_resource path="res://games/bones7242/sounds/click (1).wav" type="AudioStream" id=18]
 [ext_resource path="res://games/bones7242/scripts/snd_click.gd" type="Script" id=19]
 [ext_resource path="res://games/bones7242/sprites/scoreboard.png" type="Texture" id=20]
 [ext_resource path="res://mainmenu/theme/theme_eggplant.tres" type="Theme" id=21]
 [ext_resource path="res://mainmenu/art/font/font_kenpixel_blocks.tres" type="DynamicFont" id=22]
+[ext_resource path="res://mainmenu/art/font/font_kenpixel_mini.tres" type="DynamicFont" id=23]
+[ext_resource path="res://games/bones7242/sounds/snd_strike.wav" type="AudioStream" id=24]
+[ext_resource path="res://games/bones7242/sounds/snd_out.wav" type="AudioStream" id=25]
+[ext_resource path="res://games/bones7242/sounds/random (3).wav" type="AudioStream" id=26]
+[ext_resource path="res://games/bones7242/sounds/explosion (10).wav" type="AudioStream" id=27]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -54,70 +59,90 @@ script = ExtResource( 10 )
 [node name="Homeruns" type="RichTextLabel" parent="Scoreboard"]
 margin_left = 94.0
 margin_top = -87.0
-margin_right = 151.0
-margin_bottom = -39.0
+margin_right = 159.0
+margin_bottom = -24.0
 grow_vertical = 2
+size_flags_stretch_ratio = 2.0
 theme = ExtResource( 21 )
 custom_colors/default_color = Color( 0.878431, 0.627451, 0.235294, 1 )
 custom_fonts/normal_font = ExtResource( 22 )
-bbcode_enabled = true
 bbcode_text = "0"
 text = "0"
-scroll_active = false
-
-[node name="strike_one" type="RichTextLabel" parent="Scoreboard"]
-margin_left = -144.0
-margin_top = 37.0
-margin_right = -132.0
-margin_bottom = 52.0
-custom_colors/default_color = Color( 0.905882, 0.427451, 0.0784314, 1 )
-text = "X"
+fit_content_height = true
 scroll_active = false
 
 [node name="out_one" type="RichTextLabel" parent="Scoreboard"]
-margin_left = 62.9213
-margin_top = 33.2499
-margin_right = 74.9213
-margin_bottom = 48.2499
+margin_left = 63.0
+margin_top = 28.0
+margin_right = 85.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 custom_colors/default_color = Color( 0.905882, 0.427451, 0.0784314, 1 )
+custom_fonts/bold_font = ExtResource( 23 )
+custom_fonts/normal_font = ExtResource( 23 )
 text = "X"
 scroll_active = false
 
 [node name="out_two" type="RichTextLabel" parent="Scoreboard"]
-margin_left = 94.3821
-margin_top = 33.2499
-margin_right = 106.382
-margin_bottom = 48.2499
+margin_left = 94.0
+margin_top = 28.0
+margin_right = 114.0
+margin_bottom = 52.0
 custom_colors/default_color = Color( 0.905882, 0.427451, 0.0784314, 1 )
+custom_fonts/normal_font = ExtResource( 23 )
 text = "X"
 scroll_active = false
 
 [node name="out_three" type="RichTextLabel" parent="Scoreboard"]
-margin_left = 125.843
-margin_top = 33.2499
-margin_right = 137.843
-margin_bottom = 48.2499
+margin_left = 126.0
+margin_top = 28.0
+margin_right = 148.0
+margin_bottom = 49.0
 custom_colors/default_color = Color( 0.905882, 0.427451, 0.0784314, 1 )
+custom_fonts/normal_font = ExtResource( 23 )
+text = "X"
+scroll_active = false
+
+[node name="strike_one" type="RichTextLabel" parent="Scoreboard"]
+margin_left = -144.0
+margin_top = 33.0
+margin_right = -126.0
+margin_bottom = 52.0
+custom_colors/default_color = Color( 0.905882, 0.427451, 0.0784314, 1 )
+custom_fonts/normal_font = ExtResource( 23 )
 text = "X"
 scroll_active = false
 
 [node name="strike_two" type="RichTextLabel" parent="Scoreboard"]
-margin_left = -112.079
-margin_top = 36.9443
-margin_right = -100.079
-margin_bottom = 51.9443
+margin_left = -112.0
+margin_top = 33.0
+margin_right = -94.0
+margin_bottom = 52.0
 custom_colors/default_color = Color( 0.905882, 0.427451, 0.0784314, 1 )
+custom_fonts/normal_font = ExtResource( 23 )
 text = "X"
 scroll_active = false
 
 [node name="strike_three" type="RichTextLabel" parent="Scoreboard"]
-margin_left = -78.6517
-margin_top = 36.9443
-margin_right = -66.6517
-margin_bottom = 51.9443
+margin_left = -79.0
+margin_top = 33.0
+margin_right = -59.0
+margin_bottom = 52.0
 custom_colors/default_color = Color( 0.905882, 0.427451, 0.0784314, 1 )
+custom_fonts/normal_font = ExtResource( 23 )
 text = "X"
 scroll_active = false
+
+[node name="strike_sound" type="AudioStreamPlayer" parent="Scoreboard"]
+stream = ExtResource( 24 )
+
+[node name="out_sound" type="AudioStreamPlayer" parent="Scoreboard"]
+stream = ExtResource( 26 )
+
+[node name="gameover_sound" type="AudioStreamPlayer" parent="Scoreboard"]
+stream = ExtResource( 25 )
 
 [node name="baseball_area2d" type="Area2D" parent="."]
 script = ExtResource( 2 )
@@ -136,6 +161,9 @@ stream = SubResource( 5 )
 script = ExtResource( 16 )
 
 [node name="snd_hit" type="AudioStreamPlayer" parent="baseball_area2d"]
+stream = ExtResource( 27 )
+
+[node name="snd_hit_reflect" type="AudioStreamPlayer" parent="baseball_area2d"]
 stream = ExtResource( 11 )
 
 [node name="shadow_2d" type="Area2D" parent="."]
@@ -169,7 +197,6 @@ script = ExtResource( 19 )
 stream = ExtResource( 17 )
 
 [node name="spr_background" type="Sprite" parent="."]
-position = Vector2( 16, 1 )
 z_index = -10
 texture = ExtResource( 8 )
 centered = false
