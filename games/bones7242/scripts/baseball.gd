@@ -65,6 +65,8 @@ func hit(batter_swing_power):
 		yVelocity = batter_swing_power * 30 # multiplying b/c comes in 1-100 but now we will use delta
 		zVelocity = batter_swing_power # make it a percent of max 20
 		xVelocity = 10
+		yield(get_tree().create_timer(0.3), "timeout")
+		get_node("snd_hit_reflect").play()
 	pass
 
 func change_state_grounded():

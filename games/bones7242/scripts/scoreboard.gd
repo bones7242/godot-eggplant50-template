@@ -44,7 +44,10 @@ func new_out ():
 		reset_runs()
 		reset_outs()
 		reset_strikes()
-	yield(get_tree().create_timer(0.5), "timeout")
+		gameover_sound()
+	else:
+		yield(get_tree().create_timer(0.5), "timeout")
+		get_node("out_sound").play()
 	update_display()
 	pass
 	
@@ -56,6 +59,7 @@ func new_strike ():
 		new_out()
 		reset_strikes()
 	yield(get_tree().create_timer(0.5), "timeout")
+	get_node("strike_sound").play()
 	update_display()
 	pass
 
@@ -67,6 +71,17 @@ func new_run ():
 	yield(get_tree().create_timer(0.5), "timeout")
 	update_display()
 	pass
+
+func gameover_sound():
+	yield(get_tree().create_timer(0.5), "timeout")
+	get_node("gameover_sound").pitch_scale = 1
+	get_node("gameover_sound").play()
+	yield(get_tree().create_timer(0.2), "timeout")
+	get_node("gameover_sound").pitch_scale -= 0.4
+	get_node("gameover_sound").play()
+	yield(get_tree().create_timer(0.2), "timeout")
+	get_node("gameover_sound").pitch_scale -= 0.4
+	get_node("gameover_sound").play()
 	
 func update_display ():
 	if (strikes >= 1):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://games/bones7242/sprites/baseballx32.png" type="Texture" id=1]
 [ext_resource path="res://games/bones7242/scripts/baseball.gd" type="Script" id=2]
@@ -10,7 +10,7 @@
 [ext_resource path="res://games/bones7242/sprites/background.png" type="Texture" id=8]
 [ext_resource path="res://games/bones7242/scripts/RichTextLabel.gd" type="Script" id=9]
 [ext_resource path="res://games/bones7242/scripts/scoreboard.gd" type="Script" id=10]
-[ext_resource path="res://games/bones7242/sounds/pickupCoin (3).wav" type="AudioStream" id=11]
+[ext_resource path="res://games/bones7242/sounds/hit_reflect.wav" type="AudioStream" id=11]
 [ext_resource path="res://shared/menu_pause/PauseMenu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://games/bones7242/sprites/flagx32.png" type="Texture" id=13]
 [ext_resource path="res://games/bones7242/scripts/spr_flag.gd" type="Script" id=14]
@@ -23,6 +23,10 @@
 [ext_resource path="res://mainmenu/theme/theme_eggplant.tres" type="Theme" id=21]
 [ext_resource path="res://mainmenu/art/font/font_kenpixel_blocks.tres" type="DynamicFont" id=22]
 [ext_resource path="res://mainmenu/art/font/font_kenpixel_mini.tres" type="DynamicFont" id=23]
+[ext_resource path="res://games/bones7242/sounds/snd_strike.wav" type="AudioStream" id=24]
+[ext_resource path="res://games/bones7242/sounds/snd_out.wav" type="AudioStream" id=25]
+[ext_resource path="res://games/bones7242/sounds/random (3).wav" type="AudioStream" id=26]
+[ext_resource path="res://games/bones7242/sounds/explosion (10).wav" type="AudioStream" id=27]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -131,6 +135,15 @@ custom_fonts/normal_font = ExtResource( 23 )
 text = "X"
 scroll_active = false
 
+[node name="strike_sound" type="AudioStreamPlayer" parent="Scoreboard"]
+stream = ExtResource( 24 )
+
+[node name="out_sound" type="AudioStreamPlayer" parent="Scoreboard"]
+stream = ExtResource( 26 )
+
+[node name="gameover_sound" type="AudioStreamPlayer" parent="Scoreboard"]
+stream = ExtResource( 25 )
+
 [node name="baseball_area2d" type="Area2D" parent="."]
 script = ExtResource( 2 )
 
@@ -148,6 +161,9 @@ stream = SubResource( 5 )
 script = ExtResource( 16 )
 
 [node name="snd_hit" type="AudioStreamPlayer" parent="baseball_area2d"]
+stream = ExtResource( 27 )
+
+[node name="snd_hit_reflect" type="AudioStreamPlayer" parent="baseball_area2d"]
 stream = ExtResource( 11 )
 
 [node name="shadow_2d" type="Area2D" parent="."]
