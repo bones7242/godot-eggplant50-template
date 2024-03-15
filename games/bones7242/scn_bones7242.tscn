@@ -16,7 +16,7 @@
 [ext_resource path="res://games/bones7242/scripts/spr_flag.gd" type="Script" id=14]
 [ext_resource path="res://games/bones7242/scripts/shadow_2d.gd" type="Script" id=15]
 [ext_resource path="res://games/bones7242/scripts/snd_airtime.gd" type="Script" id=16]
-[ext_resource path="res://games/bones7242/sounds/jump (1).wav" type="AudioStream" id=17]
+[ext_resource path="res://games/bones7242/sounds/throw_1.wav" type="AudioStream" id=17]
 [ext_resource path="res://games/bones7242/sounds/click (1).wav" type="AudioStream" id=18]
 [ext_resource path="res://games/bones7242/scripts/snd_click.gd" type="Script" id=19]
 [ext_resource path="res://games/bones7242/sprites/scoreboard.png" type="Texture" id=20]
